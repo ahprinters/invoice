@@ -15,153 +15,173 @@ if (!isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Invoice - Invoice System</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .sidebar .nav-link.active {
+            color: #0d6efd;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="min-h-screen">
-        <!-- Sidebar -->
-        <aside class="fixed inset-y-0 left-0 bg-white w-64 shadow-lg">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold">Invoice System</h2>
-            </div>
-            <nav class="mt-6">
-                <a href="dashboard.php" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <span class="mx-3">Dashboard</span>
-                </a>
-                <a href="#" class="flex items-center px-6 py-3 text-gray-700 bg-gray-100">
-                    <span class="mx-3">Invoices</span>
-                </a>
-                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <span class="mx-3">Customers</span>
-                </a>
-                <a href="logout.php" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <span class="mx-3">Logout</span>
-                </a>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="mb-4 px-3">
+                        <h2 class="h4">Invoice System</h2>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.php">
+                                <i class="bi bi-speedometer2 me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="invoices.php">
+                                <i class="bi bi-file-text me-2"></i>
+                                Invoices
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customers.php">
+                                <i class="bi bi-people me-2"></i>
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="ml-64 p-8">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold">Create New Invoice</h1>
-            </div>
-            <form action="/invoice/public/save_invoice.php" method="POST" class="bg-white rounded-lg shadow-md p-6">
-                <!-- Customer Information -->
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">Customer Information</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="customer_name">
-                                Customer Name
-                            </label>
-                            <input type="text" id="customer_name" name="customer_name" required
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="customer_email">
-                                Customer Email
-                            </label>
-                            <input type="email" id="customer_email" name="customer_email" required
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        </div>
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Create New Invoice</h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form action="save_invoice.php" method="POST">
+                            <!-- Customer Information -->
+                            <div class="mb-4">
+                                <h4 class="card-title mb-3">Customer Information</h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="customer_name" class="form-label">Customer Name</label>
+                                        <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="customer_email" class="form-label">Customer Email</label>
+                                        <input type="email" class="form-control" id="customer_email" name="customer_email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Invoice Details -->
+                            <div class="mb-4">
+                                <h4 class="card-title mb-3">Invoice Details</h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="invoice_date" class="form-label">Invoice Date</label>
+                                        <input type="date" class="form-control" id="invoice_date" name="invoice_date" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="due_date" class="form-label">Due Date</label>
+                                        <input type="date" class="form-control" id="due_date" name="due_date" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Invoice Items -->
+                            <div class="mb-4">
+                                <h4 class="card-title mb-3">Invoice Items</h4>
+                                <div id="invoice-items">
+                                    <div class="row mb-3">
+                                        <div class="col-md-5">
+                                            <label class="form-label">Description</label>
+                                            <input type="text" name="items[0][description]" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Quantity</label>
+                                            <input type="number" name="items[0][quantity]" class="form-control" required min="1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Price</label>
+                                            <input type="number" name="items[0][price]" class="form-control" required step="0.01">
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-end">
+                                            <button type="button" class="btn btn-danger remove-item">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-item" class="btn btn-success">Add Item</button>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Create Invoice</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <!-- Invoice Details -->
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">Invoice Details</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="invoice_date">
-                                Invoice Date
-                            </label>
-                            <input type="date" id="invoice_date" name="invoice_date" required
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="due_date">
-                                Due Date
-                            </label>
-                            <input type="date" id="due_date" name="due_date" required
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Invoice Items -->
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">Invoice Items</h2>
-                    <div id="invoice-items">
-                        <div class="grid grid-cols-4 gap-4 mb-4">
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-                                <input type="text" name="items[0][description]" required
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
-                                <input type="number" name="items[0][quantity]" required min="1"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Price</label>
-                                <input type="number" name="items[0][price]" required step="0.01"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div class="flex items-end">
-                                <button type="button" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" id="add-item" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                        Add Item
-                    </button>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
-                        Create Invoice
-                    </button>
-                </div>
-            </form>
-        </main>
+            </main>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('add-item').addEventListener('click', function() {
             const itemsContainer = document.getElementById('invoice-items');
             const itemCount = itemsContainer.children.length;
             
             const newItem = document.createElement('div');
-            newItem.className = 'grid grid-cols-4 gap-4 mb-4';
+            newItem.className = 'row mb-3';
             newItem.innerHTML = `
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-                    <input type="text" name="items[${itemCount}][description]" required
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="col-md-5">
+                    <label class="form-label">Description</label>
+                    <input type="text" name="items[${itemCount}][description]" class="form-control" required>
                 </div>
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
-                    <input type="number" name="items[${itemCount}][quantity]" required min="1"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="col-md-2">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" name="items[${itemCount}][quantity]" class="form-control" required min="1">
                 </div>
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Price</label>
-                    <input type="number" name="items[${itemCount}][price]" required step="0.01"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="col-md-3">
+                    <label class="form-label">Price</label>
+                    <input type="number" name="items[${itemCount}][price]" class="form-control" required step="0.01">
                 </div>
-                <div class="flex items-end">
-                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Remove</button>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger remove-item">Remove</button>
                 </div>
             `;
             
             itemsContainer.appendChild(newItem);
         });
 
-        document.getElementById('invoice-items').addEventListener('click', function(e) {
-            if (e.target.matches('button') && e.target.textContent === 'Remove') {
-                e.target.closest('.grid').remove();
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-item')) {
+                e.target.closest('.row').remove();
             }
         });
     </script>

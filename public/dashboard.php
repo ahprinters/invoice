@@ -25,6 +25,7 @@ $totalAmount = $stmt->fetch()['total'];
 // Get recent invoices
 $stmt = $db->query("SELECT * FROM invoices ORDER BY created_at DESC LIMIT 5");
 $recentInvoices = $stmt->fetchAll();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +35,26 @@ $recentInvoices = $stmt->fetchAll();
     <title>Dashboard - Invoice System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .sidebar .nav-link.active {
+            color: #0d6efd;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
