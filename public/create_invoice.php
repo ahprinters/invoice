@@ -45,8 +45,7 @@ if (!isset($_SESSION['user'])) {
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold">Create New Invoice</h1>
             </div>
-
-            <form action="save_invoice.php" method="POST" class="bg-white rounded-lg shadow-md p-6">
+            <form action="/invoice/public/save_invoice.php" method="POST" class="bg-white rounded-lg shadow-md p-6">
                 <!-- Customer Information -->
                 <div class="mb-6">
                     <h2 class="text-xl font-semibold mb-4">Customer Information</h2>
