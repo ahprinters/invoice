@@ -1,0 +1,13 @@
+{
+    "name": "invoice/management",
+    "description": "Invoice Management System",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    }
+}
